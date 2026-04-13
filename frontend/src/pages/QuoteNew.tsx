@@ -10,7 +10,6 @@ import {
   type JobTypeSummary,
   type GenerateQuoteResponse,
   type BenchmarkData,
-  type PriceHistoryRecord,
 } from "../api";
 
 const UNIT_LABELS: Record<string, string> = {
@@ -160,7 +159,7 @@ export default function QuoteNew() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1F1B1C] text-white font-['Inter',sans-serif]">
+    <div className="min-h-screen bg-[#1F1B1C] text-white">
       <header className="border-b border-white/10 px-4 py-3">
         <div className="max-w-5xl mx-auto flex items-center gap-3">
           <button onClick={() => navigate(`/dashboard?firm=${firmId}`)} className="text-lg font-semibold tracking-tight hover:text-amber-400 transition-colors">
@@ -175,7 +174,7 @@ export default function QuoteNew() {
         {/* Input form */}
         {!result && (
           <div className="space-y-4 max-w-2xl">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs text-white/40 mb-1">Kunde</label>
                 <select
@@ -271,8 +270,8 @@ export default function QuoteNew() {
             )}
 
             {/* Line items table */}
-            <div className="rounded-lg border border-white/10 overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="rounded-lg border border-white/10 overflow-x-auto">
+              <table className="w-full text-sm min-w-[640px]">
                 <thead>
                   <tr className="border-b border-white/10 text-left text-xs text-white/40">
                     <th className="px-4 py-2 w-12">#</th>

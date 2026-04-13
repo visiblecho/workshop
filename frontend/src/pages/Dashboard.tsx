@@ -78,7 +78,7 @@ export default function Dashboard() {
   const isNewFirm = firmId === NEUER_FIRM_ID;
 
   return (
-    <div className="min-h-screen bg-[#1F1B1C] text-white font-['Inter',sans-serif]">
+    <div className="min-h-screen bg-[#1F1B1C] text-white">
       {/* Header */}
       <header className="border-b border-white/10 px-4 py-3">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
@@ -90,24 +90,46 @@ export default function Dashboard() {
             <span className="text-sm text-white/50">{data.firm.name}</span>
           </div>
 
-          {/* Role switcher */}
-          {users.length > 0 && (
+          <div className="flex items-center gap-3">
+            {/* Firm switcher */}
             <div className="flex items-center gap-1 bg-white/5 rounded-lg p-1">
-              {users.map((u) => (
-                <button
-                  key={u.id}
-                  onClick={() => setActiveUser(u)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
-                    activeUser?.id === u.id
-                      ? "bg-amber-500/20 text-amber-400"
-                      : "text-white/40 hover:text-white/70"
-                  }`}
-                >
-                  {ROLE_LABELS[u.role] || u.role}
-                </button>
-              ))}
+              <button
+                onClick={() => navigate(`/dashboard?firm=${WEBER_FIRM_ID}`)}
+                className={`px-2 py-1 rounded-md text-xs font-medium transition-all ${
+                  firmId === WEBER_FIRM_ID ? "bg-amber-500/20 text-amber-400" : "text-white/40 hover:text-white/70"
+                }`}
+              >
+                Weber
+              </button>
+              <button
+                onClick={() => navigate(`/dashboard?firm=${NEUER_FIRM_ID}`)}
+                className={`px-2 py-1 rounded-md text-xs font-medium transition-all ${
+                  firmId === NEUER_FIRM_ID ? "bg-amber-500/20 text-amber-400" : "text-white/40 hover:text-white/70"
+                }`}
+              >
+                Neuer Betrieb
+              </button>
             </div>
-          )}
+
+            {/* Role switcher */}
+            {users.length > 0 && (
+              <div className="flex items-center gap-1 bg-white/5 rounded-lg p-1">
+                {users.map((u) => (
+                  <button
+                    key={u.id}
+                    onClick={() => setActiveUser(u)}
+                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+                      activeUser?.id === u.id
+                        ? "bg-amber-500/20 text-amber-400"
+                        : "text-white/40 hover:text-white/70"
+                    }`}
+                  >
+                    {ROLE_LABELS[u.role] || u.role}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
@@ -144,7 +166,7 @@ export default function Dashboard() {
         )}
 
         {/* Summary cards */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <SummaryCard label="Offene Angebote" value={data.counts.open_quotes} />
           <SummaryCard label="Aktive Projekte" value={data.counts.active_projects} />
           <SummaryCard label="Abgeschlossen" value={data.counts.completed_projects} />
@@ -199,8 +221,8 @@ export default function Dashboard() {
         {data.recent_quotes.length > 0 && (
           <div className="space-y-2">
             <h3 className="text-sm font-semibold text-white/60">Angebote</h3>
-            <div className="rounded-lg border border-white/10 overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="rounded-lg border border-white/10 overflow-x-auto">
+              <table className="w-full text-sm min-w-[500px]">
                 <thead>
                   <tr className="border-b border-white/10 text-left text-xs text-white/40">
                     <th className="px-4 py-2">Kunde</th>
@@ -237,8 +259,8 @@ export default function Dashboard() {
         {data.recent_projects.length > 0 && (
           <div className="space-y-2">
             <h3 className="text-sm font-semibold text-white/60">Projekte</h3>
-            <div className="rounded-lg border border-white/10 overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="rounded-lg border border-white/10 overflow-x-auto">
+              <table className="w-full text-sm min-w-[500px]">
                 <thead>
                   <tr className="border-b border-white/10 text-left text-xs text-white/40">
                     <th className="px-4 py-2">Kunde</th>

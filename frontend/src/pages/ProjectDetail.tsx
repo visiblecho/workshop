@@ -80,7 +80,7 @@ export default function ProjectDetailPage() {
   const materialActual = materialItems.reduce((s, li) => s + li.actual_total, 0);
 
   return (
-    <div className="min-h-screen bg-[#1F1B1C] text-white font-['Inter',sans-serif]">
+    <div className="min-h-screen bg-[#1F1B1C] text-white">
       <header className="border-b border-white/10 px-4 py-3">
         <div className="max-w-5xl mx-auto flex items-center gap-3">
           <button onClick={() => navigate(`/dashboard?firm=${firmId}`)} className="text-lg font-semibold tracking-tight hover:text-amber-400 transition-colors">
@@ -113,7 +113,7 @@ export default function ProjectDetailPage() {
         <div className="p-4 rounded-lg bg-white/[0.03] border border-white/10 space-y-4">
           <h3 className="text-sm font-semibold text-white/80">Arbeitszeit</h3>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <StatCard label="Kalkuliert" value={project.planned_hours ? `${project.planned_hours}h` : "–"} />
             <StatCard label="Tatsächlich" value={project.actual_hours ? `${project.actual_hours}h` : "–"} />
             <StatCard
@@ -154,7 +154,7 @@ export default function ProjectDetailPage() {
           </div>
 
           {/* Summary row */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <StatCard label="Kalkuliert gesamt" value={formatEUR(totalQuoted)} />
             <StatCard label="Tatsächlich gesamt" value={formatEUR(totalActual)} />
             <StatCard
@@ -164,7 +164,7 @@ export default function ProjectDetailPage() {
           </div>
 
           {/* Breakdown: labor vs material */}
-          <div className="grid grid-cols-2 gap-4 pt-2 border-t border-white/5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-white/5">
             <div className="text-sm">
               <div className="text-white/40 text-xs mb-1">Arbeit</div>
               <div className="flex justify-between">

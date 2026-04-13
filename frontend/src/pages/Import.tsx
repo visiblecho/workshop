@@ -112,6 +112,15 @@ export default function Import() {
             <p className="text-green-400 font-medium">Import abgeschlossen</p>
           </div>
         )}
+
+        {!done && (
+          <button
+            onClick={() => navigate("/")}
+            className="w-full text-center text-sm text-white/20 hover:text-white/40 transition-colors"
+          >
+            Abbrechen
+          </button>
+        )}
       </div>
     </div>
   );
