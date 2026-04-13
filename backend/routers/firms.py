@@ -99,18 +99,38 @@ async def dashboard(firm_id: str, db: Session = Depends(get_db)):
     )
 
     cl_insights = []
-    for fb, jt_name in firm_benchmarks:
-        cl = db.query(CLBenchmark).filter(
-            CLBenchmark.job_type_id == fb.job_type_id,
-            CLBenchmark.metric == CLMetric.duration_h,
-            CLBenchmark.segment == firm.segment,
-        ).first()
-        cl_insights.append({
-            "job_type": jt_name,
-            "firm_median": float(fb.p50) if fb.p50 else None,
-            "platform_median": float(cl.p50) if cl else None,
-            "platform_sample_size": cl.sample_size if cl else None,
-        })
+    if firm_benchmarks:
+        # Firm has benchmarks -- show firm vs platform
+        for fb, jt_name in firm_benchmarks:
+            cl = db.query(CLBenchmark).filter(
+                CLBenchmark.job_type_id == fb.job_type_id,
+                CLBenchmark.metric == CLMetric.duration_h,
+                CLBenchmark.segment == firm.segment,
+            ).first()
+            cl_insights.append({
+                "job_type": jt_name,
+                "firm_median": float(fb.p50) if fb.p50 else None,
+                "platform_median": float(cl.p50) if cl else None,
+                "platform_sample_size": cl.sample_size if cl else None,
+            })
+    else:
+        # No firm benchmarks -- show platform-only CL data
+        cl_only = (
+            db.query(CLBenchmark, JobType.name.label("job_type_name"))
+            .join(JobType, CLBenchmark.job_type_id == JobType.id)
+            .filter(
+                CLBenchmark.metric == CLMetric.duration_h,
+                CLBenchmark.segment == firm.segment,
+            )
+            .all()
+        )
+        for cl, jt_name in cl_only:
+            cl_insights.append({
+                "job_type": jt_name,
+                "firm_median": None,
+                "platform_median": float(cl.p50) if cl.p50 else None,
+                "platform_sample_size": cl.sample_size,
+            })
 
     # Customer/project/position counts for import narrative
     customer_count = db.query(func.count(Customer.id)).filter(

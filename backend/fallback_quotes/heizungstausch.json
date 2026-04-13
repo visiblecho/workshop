@@ -1,0 +1,104 @@
+{
+  "line_items": [
+    {
+      "position": 1,
+      "description": "Demontage Altgerät (Gasbrennwert 24kW) inkl. Entsorgung",
+      "category": "labor",
+      "quantity": 6,
+      "unit": "hours",
+      "unit_price": 58,
+      "total": 348,
+      "article_id": null
+    },
+    {
+      "position": 2,
+      "description": "Luft-Wasser-Wärmepumpe 8kW",
+      "category": "material",
+      "quantity": 1,
+      "unit": "pieces",
+      "unit_price": 8500,
+      "total": 8500,
+      "article_id": "50000000-0000-0000-0000-000000000007"
+    },
+    {
+      "position": 3,
+      "description": "Ausdehnungsgefäß 35L",
+      "category": "material",
+      "quantity": 1,
+      "unit": "pieces",
+      "unit_price": 125,
+      "total": 125,
+      "article_id": "50000000-0000-0000-0000-000000000008"
+    },
+    {
+      "position": 4,
+      "description": "Umwälzpumpe Hocheffizienz 25-60",
+      "category": "material",
+      "quantity": 1,
+      "unit": "pieces",
+      "unit_price": 385,
+      "total": 385,
+      "article_id": "50000000-0000-0000-0000-000000000005"
+    },
+    {
+      "position": 5,
+      "description": "Kupferrohr 22mm",
+      "category": "material",
+      "quantity": 20,
+      "unit": "meters",
+      "unit_price": 12.80,
+      "total": 256,
+      "article_id": "50000000-0000-0000-0000-000000000002"
+    },
+    {
+      "position": 6,
+      "description": "Pressfitting T-Stück 22mm",
+      "category": "material",
+      "quantity": 12,
+      "unit": "pieces",
+      "unit_price": 9.80,
+      "total": 117.60,
+      "article_id": "50000000-0000-0000-0000-00000000000a"
+    },
+    {
+      "position": 7,
+      "description": "Rohrisolierung 22mm",
+      "category": "material",
+      "quantity": 20,
+      "unit": "meters",
+      "unit_price": 4.50,
+      "total": 90,
+      "article_id": "50000000-0000-0000-0000-00000000000b"
+    },
+    {
+      "position": 8,
+      "description": "Hydraulischer Anschluss und Verrohrung",
+      "category": "labor",
+      "quantity": 10,
+      "unit": "hours",
+      "unit_price": 58,
+      "total": 580,
+      "article_id": null
+    },
+    {
+      "position": 9,
+      "description": "Elektroinstallation und Steuerung",
+      "category": "labor",
+      "quantity": 4,
+      "unit": "hours",
+      "unit_price": 62,
+      "total": 248,
+      "article_id": null
+    },
+    {
+      "position": 10,
+      "description": "Inbetriebnahme, Einstellung und Einweisung",
+      "category": "labor",
+      "quantity": 3,
+      "unit": "hours",
+      "unit_price": 62,
+      "total": 186,
+      "article_id": null
+    }
+  ]
+}

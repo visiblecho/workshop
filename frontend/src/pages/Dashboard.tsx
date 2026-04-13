@@ -154,7 +154,9 @@ export default function Dashboard() {
         {isMeister && data.cl_insights.length > 0 && (
           <div className="p-4 rounded-lg bg-white/[0.03] border border-white/10 space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-white/80">Ihr Betriebsvergleich</h3>
+              <h3 className="text-sm font-semibold text-white/80">
+                {isNewFirm ? "Plattform-Vergleich" : "Ihr Betriebsvergleich"}
+              </h3>
               {!isNewFirm && showBanner && (
                 <span className="text-xs text-amber-400/60">Berechnet aus Ihren importierten Daten</span>
               )}
@@ -177,6 +179,11 @@ export default function Dashboard() {
                 </div>
               ))}
             </div>
+            {isNewFirm && (
+              <p className="text-xs text-white/30 pt-2 border-t border-white/5">
+                Nach Ihren ersten 5 Aufträgen berechnen wir Ihren Betriebsvergleich.
+              </p>
+            )}
           </div>
         )}
 

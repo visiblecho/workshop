@@ -123,6 +123,13 @@ def seed_reference_data(session):
             email="yilmaz@weber-haustechnik.de", language="de",
         ),
     ]
+    # User for Neuer Betrieb
+    users.append(User(
+        id=uuid.UUID("20000000-0000-0000-0000-000000000010"),
+        firm_id=NEUER_FIRM_ID,
+        name="Neuer Meister", role=Role.meister,
+        email="meister@neuer-betrieb.de", language="de",
+    ))
     for u in users:
         session.merge(u)
 
@@ -157,6 +164,14 @@ def seed_reference_data(session):
             name="Becker & Söhne KG", type=CustomerType.commercial,
             address="Hildesheimer Str. 265, 30519 Hannover",
             postal_code="30519", phone="0511-555-0505",
+        ),
+        # Customer for Neuer Betrieb
+        Customer(
+            id=uuid.UUID("30000000-0000-0000-0000-000000000010"),
+            firm_id=NEUER_FIRM_ID,
+            name="Testkunde Neuer Betrieb", type=CustomerType.residential,
+            address="Musterstraße 1, 30159 Hannover",
+            postal_code="30159", phone="0511-555-0999",
         ),
     ]
     for c in customers:
