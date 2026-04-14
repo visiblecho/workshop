@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Sidebar from "./Sidebar";
+import Phase2Toast from "./Phase2Toast";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -29,6 +30,7 @@ export default function AppLayout({ children, title }: AppLayoutProps) {
   return (
     <div className="min-h-screen bg-[#1F1B1C] text-white">
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <Phase2Toast />
 
       {/* Main content area — offset by sidebar width on desktop */}
       <div className="lg:ml-60">
