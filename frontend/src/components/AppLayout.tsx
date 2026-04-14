@@ -1,9 +1,7 @@
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import Sidebar from "./Sidebar";
-
-const WEBER_FIRM_ID = "10000000-0000-0000-0000-000000000001";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -12,8 +10,21 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children, title }: AppLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [searchParams] = useSearchParams();
-  const firmId = searchParams.get("firm") || WEBER_FIRM_ID;
+  const location = useLocation();
+
+  // Close sidebar on route change (mobile)
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [location.pathname]);
+
+  // Close sidebar on Escape
+  useEffect(() => {
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setSidebarOpen(false);
+    }
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#1F1B1C] text-white">
@@ -25,10 +36,11 @@ export default function AppLayout({ children, title }: AppLayoutProps) {
         <header className="border-b border-white/10 px-4 py-3">
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setSidebarOpen(true)}
+              onClick={() => setSidebarOpen(!sidebarOpen)}
               className="lg:hidden text-white/50 hover:text-white"
+              aria-label={sidebarOpen ? "Menü schließen" : "Menü öffnen"}
             >
-              <Menu className="w-5 h-5" />
+              {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
             {title && <span className="text-sm text-white/50">{title}</span>}
           </div>
