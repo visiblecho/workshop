@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { getProject, getEvents, type ProjectDetail as ProjectDetailData, type EventRecord } from "../api";
+import AppLayout from "../components/AppLayout";
 
 const STATUS_LABELS: Record<string, string> = {
   planned: "Geplant", active: "Aktiv", completed: "Abgeschlossen", cancelled: "Storniert",
@@ -62,9 +63,11 @@ export default function ProjectDetailPage() {
 
   if (loading || !project) {
     return (
-      <div className="min-h-screen bg-[#1F1B1C] flex items-center justify-center">
-        <div className="text-white/50">Laden...</div>
-      </div>
+      <AppLayout title="Projektdetail">
+        <div className="flex items-center justify-center py-20">
+          <div className="text-white/50">Laden...</div>
+        </div>
+      </AppLayout>
     );
   }
 
@@ -80,18 +83,8 @@ export default function ProjectDetailPage() {
   const materialActual = materialItems.reduce((s, li) => s + li.actual_total, 0);
 
   return (
-    <div className="min-h-screen bg-[#1F1B1C] text-white">
-      <header className="border-b border-white/10 px-4 py-3">
-        <div className="max-w-5xl mx-auto flex items-center gap-3">
-          <button onClick={() => navigate(`/dashboard?firm=${firmId}`)} className="text-lg font-semibold tracking-tight hover:text-amber-400 transition-colors">
-            Workshop
-          </button>
-          <span className="text-white/20">|</span>
-          <span className="text-sm text-white/50">Projektdetail</span>
-        </div>
-      </header>
-
-      <main className="max-w-5xl mx-auto px-4 py-6 space-y-6">
+    <AppLayout title="Projektdetail">
+      <div className="space-y-6">
         {/* Project header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
@@ -277,8 +270,8 @@ export default function ProjectDetailPage() {
         >
           Zurück zum Dashboard
         </button>
-      </main>
-    </div>
+      </div>
+    </AppLayout>
   );
 }
 

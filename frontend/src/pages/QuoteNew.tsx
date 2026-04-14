@@ -11,6 +11,7 @@ import {
   type GenerateQuoteResponse,
   type BenchmarkData,
 } from "../api";
+import AppLayout from "../components/AppLayout";
 
 const UNIT_LABELS: Record<string, string> = {
   hours: "Std", pieces: "Stk", meters: "m", kg: "kg",
@@ -159,18 +160,8 @@ export default function QuoteNew() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1F1B1C] text-white">
-      <header className="border-b border-white/10 px-4 py-3">
-        <div className="max-w-5xl mx-auto flex items-center gap-3">
-          <button onClick={() => navigate(`/dashboard?firm=${firmId}`)} className="text-lg font-semibold tracking-tight hover:text-amber-400 transition-colors">
-            Workshop
-          </button>
-          <span className="text-white/20">|</span>
-          <span className="text-sm text-white/50">Neues Angebot</span>
-        </div>
-      </header>
-
-      <main className="max-w-5xl mx-auto px-4 py-6 space-y-6">
+    <AppLayout title="Neues Angebot">
+      <div className="space-y-6">
         {/* Input form */}
         {!result && (
           <div className="space-y-4 max-w-2xl">
@@ -405,8 +396,8 @@ export default function QuoteNew() {
             </div>
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </AppLayout>
   );
 }
 

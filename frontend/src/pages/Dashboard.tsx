@@ -6,6 +6,7 @@ import {
   type DashboardData,
   type UserSummary,
 } from "../api";
+import AppLayout from "../components/AppLayout";
 
 const WEBER_FIRM_ID = "10000000-0000-0000-0000-000000000001";
 const NEUER_FIRM_ID = "10000000-0000-0000-0000-000000000002";
@@ -68,9 +69,11 @@ export default function Dashboard() {
 
   if (loading || !data) {
     return (
-      <div className="min-h-screen bg-[#1F1B1C] flex items-center justify-center">
-        <div className="text-white/50">Laden...</div>
-      </div>
+      <AppLayout title="Dashboard">
+        <div className="flex items-center justify-center py-20">
+          <div className="text-white/50">Laden...</div>
+        </div>
+      </AppLayout>
     );
   }
 
@@ -78,62 +81,27 @@ export default function Dashboard() {
   const isNewFirm = firmId === NEUER_FIRM_ID;
 
   return (
-    <div className="min-h-screen bg-[#1F1B1C] text-white">
-      {/* Header */}
-      <header className="border-b border-white/10 px-4 py-3">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button onClick={() => navigate("/")} className="text-lg font-semibold tracking-tight hover:text-amber-400 transition-colors">
-              Workshop
+    <AppLayout title={data.firm.name}>
+      {/* Role switcher */}
+      {users.length > 0 && (
+        <div className="flex items-center gap-1 bg-white/5 rounded-lg p-1 w-fit mb-6">
+          {users.map((u) => (
+            <button
+              key={u.id}
+              onClick={() => setActiveUser(u)}
+              className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+                activeUser?.id === u.id
+                  ? "bg-amber-500/20 text-amber-400"
+                  : "text-white/40 hover:text-white/70"
+              }`}
+            >
+              {ROLE_LABELS[u.role] || u.role}
             </button>
-            <span className="text-white/20">|</span>
-            <span className="text-sm text-white/50">{data.firm.name}</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {/* Firm switcher */}
-            <div className="flex items-center gap-1 bg-white/5 rounded-lg p-1">
-              <button
-                onClick={() => navigate(`/dashboard?firm=${WEBER_FIRM_ID}`)}
-                className={`px-2 py-1 rounded-md text-xs font-medium transition-all ${
-                  firmId === WEBER_FIRM_ID ? "bg-amber-500/20 text-amber-400" : "text-white/40 hover:text-white/70"
-                }`}
-              >
-                Weber
-              </button>
-              <button
-                onClick={() => navigate(`/dashboard?firm=${NEUER_FIRM_ID}`)}
-                className={`px-2 py-1 rounded-md text-xs font-medium transition-all ${
-                  firmId === NEUER_FIRM_ID ? "bg-amber-500/20 text-amber-400" : "text-white/40 hover:text-white/70"
-                }`}
-              >
-                Neuer Betrieb
-              </button>
-            </div>
-
-            {/* Role switcher */}
-            {users.length > 0 && (
-              <div className="flex items-center gap-1 bg-white/5 rounded-lg p-1">
-                {users.map((u) => (
-                  <button
-                    key={u.id}
-                    onClick={() => setActiveUser(u)}
-                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
-                      activeUser?.id === u.id
-                        ? "bg-amber-500/20 text-amber-400"
-                        : "text-white/40 hover:text-white/70"
-                    }`}
-                  >
-                    {ROLE_LABELS[u.role] || u.role}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          ))}
         </div>
-      </header>
+      )}
 
-      <main className="max-w-5xl mx-auto px-4 py-6 space-y-6">
+      <div className="space-y-6">
         {/* Import banner (E1-S4) */}
         {showBanner && !isNewFirm && (
           <div className="flex items-start justify-between gap-4 p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
@@ -299,8 +267,8 @@ export default function Dashboard() {
             </div>
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </AppLayout>
   );
 }
 
