@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
-import PlaceholderPage, { type WaveContent } from "../components/PlaceholderPage";
+import PlaceholderPage, { type WaveContent, type PlaceholderAction } from "../components/PlaceholderPage";
+import { showPhase2Toast } from "../components/Phase2Toast";
 import AppLayout from "../components/AppLayout";
 
 interface ModuleContent {
@@ -7,6 +8,7 @@ interface ModuleContent {
   description: string;
   waves: WaveContent;
   clTeaser: string;
+  actions?: PlaceholderAction[];
 }
 
 const MODULES: Record<string, ModuleContent> = {
@@ -79,6 +81,10 @@ const MODULES: Record<string, ModuleContent> = {
       w3: "KI passt Rechnung anhand Soll/Ist an, markiert Abweichungen.",
     },
     clTeaser: "CL-Signal: \"Ihre durchschnittliche Rechnungsstellung: 8 Tage nach Abschluss. Top-Betriebe: 2 Tage.\"",
+    actions: [
+      { label: "DATEV-Schnittstelle", onClick: () => showPhase2Toast("DATEV-Export — verfügbar in Phase 2. Das Datenmodell ist vorbereitet.") },
+      { label: "ZUGFeRD / XRechnung", onClick: () => showPhase2Toast("E-Rechnung — verfügbar in Phase 2.") },
+    ],
   },
   zahlungen: {
     title: "Zahlungen",

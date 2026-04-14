@@ -7,14 +7,20 @@ export interface WaveContent {
   w3: string;
 }
 
+export interface PlaceholderAction {
+  label: string;
+  onClick: () => void;
+}
+
 interface PlaceholderPageProps {
   title: string;
   description: string;
   waves: WaveContent;
   clTeaser: string;
+  actions?: PlaceholderAction[];
 }
 
-export default function PlaceholderPage({ title, description, waves, clTeaser }: PlaceholderPageProps) {
+export default function PlaceholderPage({ title, description, waves, clTeaser, actions }: PlaceholderPageProps) {
   return (
     <AppLayout title={title}>
       <div className="max-w-2xl space-y-6">
@@ -65,6 +71,21 @@ export default function PlaceholderPage({ title, description, waves, clTeaser }:
             </div>
           </div>
         </div>
+
+        {/* Actions */}
+        {actions && actions.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {actions.map((action) => (
+              <button
+                key={action.label}
+                onClick={action.onClick}
+                className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white/60 hover:text-white/80 rounded-lg text-sm transition-colors"
+              >
+                {action.label}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* CL teaser */}
         <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
