@@ -12,6 +12,7 @@ import {
   type BenchmarkData,
 } from "../api";
 import AppLayout from "../components/AppLayout";
+import { showPhase2Toast } from "../components/Phase2Toast";
 
 const UNIT_LABELS: Record<string, string> = {
   hours: "Std", pieces: "Stk", meters: "m", kg: "kg",
@@ -375,7 +376,39 @@ export default function QuoteNew() {
             )}
 
             {/* Actions */}
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => showPhase2Toast("Angebot bearbeiten — verfügbar in Phase 2.")}
+                className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white/60 rounded-lg text-sm transition-colors"
+              >
+                Angebot bearbeiten
+              </button>
+              <button
+                onClick={() => showPhase2Toast("Angebot duplizieren — verfügbar in Phase 2.")}
+                className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white/60 rounded-lg text-sm transition-colors"
+              >
+                Angebot duplizieren
+              </button>
+              <button
+                onClick={() => showPhase2Toast("PDF-Export — verfügbar in Phase 2.")}
+                className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white/60 rounded-lg text-sm transition-colors"
+              >
+                Als PDF exportieren
+              </button>
+              <button
+                onClick={() => showPhase2Toast("E-Mail-Versand — verfügbar in Phase 2.")}
+                className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white/60 rounded-lg text-sm transition-colors"
+              >
+                Per E-Mail senden
+              </button>
+              <button
+                onClick={() => showPhase2Toast("Angebot löschen — verfügbar in Phase 2.")}
+                className="px-4 py-2 bg-white/5 hover:bg-red-500/10 text-white/40 hover:text-red-400/70 rounded-lg text-sm transition-colors"
+              >
+                Löschen
+              </button>
+            </div>
+            <div className="flex gap-3 pt-2 border-t border-white/5">
               <button
                 onClick={() => {
                   setResult(null);
@@ -383,7 +416,7 @@ export default function QuoteNew() {
                   setPriceAlerts({});
                   setDescription("");
                 }}
-                className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white/60 rounded-lg text-sm transition-colors"
+                className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-[#1F1B1C] font-semibold rounded-lg text-sm transition-colors"
               >
                 Neues Angebot
               </button>
