@@ -48,7 +48,7 @@ const NAV_GROUPS: NavGroup[] = [
   {
     title: "System",
     items: [
-      { label: "Einstellungen", icon: Settings, path: "/module/einstellungen", active: false },
+      { label: "Einstellungen", icon: Settings, path: "/settings", active: true },
     ],
   },
 ];

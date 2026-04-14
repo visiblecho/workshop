@@ -8,6 +8,7 @@ import ProjectDetail from "./pages/ProjectDetail";
 import ModulePage from "./pages/ModulePage";
 import CustomerList from "./pages/CustomerList";
 import ArticleCatalog from "./pages/ArticleCatalog";
+import SettingsPage from "./pages/SettingsPage";
 
 function NotFound() {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ function App() {
         <Route path="/project/:projectId" element={<ProjectDetail />} />
         <Route path="/customers" element={<CustomerList />} />
         <Route path="/articles" element={<ArticleCatalog />} />
+        <Route path="/settings" element={<SettingsPage />} />
         <Route path="/module/:moduleId" element={<ModulePage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

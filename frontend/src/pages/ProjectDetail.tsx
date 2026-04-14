@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { getProject, getEvents, type ProjectDetail as ProjectDetailData, type EventRecord } from "../api";
 import AppLayout from "../components/AppLayout";
+import { showPhase2Toast } from "../components/Phase2Toast";
 
 const STATUS_LABELS: Record<string, string> = {
   planned: "Geplant", active: "Aktiv", completed: "Abgeschlossen", cancelled: "Storniert",
@@ -99,6 +100,24 @@ export default function ProjectDetailPage() {
             }`}>
               {STATUS_LABELS[project.status]}
             </span>
+            <button
+              onClick={() => showPhase2Toast("Projekt bearbeiten — verfügbar in Phase 2.")}
+              className="px-3 py-1 bg-white/5 hover:bg-white/10 text-white/50 hover:text-white/70 rounded-lg text-xs transition-colors"
+            >
+              Bearbeiten
+            </button>
+            <button
+              onClick={() => showPhase2Toast("Projekt archivieren — verfügbar in Phase 2.")}
+              className="px-3 py-1 bg-white/5 hover:bg-red-500/10 text-white/40 hover:text-red-400/70 rounded-lg text-xs transition-colors"
+            >
+              Archivieren
+            </button>
+            <button
+              onClick={() => showPhase2Toast("PDF-Export — verfügbar in Phase 2.")}
+              className="px-3 py-1 bg-white/5 hover:bg-white/10 text-white/50 hover:text-white/70 rounded-lg text-xs transition-colors"
+            >
+              Als PDF
+            </button>
           </div>
         </div>
 

@@ -187,6 +187,12 @@ export default function Dashboard() {
             + Neues Angebot
           </button>
           <button
+            onClick={() => showPhase2Toast("Neues Projekt — verfügbar in Phase 2.")}
+            className="px-5 py-3 bg-white/5 hover:bg-white/10 text-white/60 rounded-lg font-medium transition-colors"
+          >
+            + Neues Projekt
+          </button>
+          <button
             onClick={() => showPhase2Toast("Neuer Kunde — verfügbar in Phase 2.")}
             className="px-5 py-3 bg-white/5 hover:bg-white/10 text-white/60 rounded-lg font-medium transition-colors"
           >
