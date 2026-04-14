@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import QuoteNew from "./pages/QuoteNew";
 import ProjectDetail from "./pages/ProjectDetail";
 import ModulePage from "./pages/ModulePage";
+import CustomerList from "./pages/CustomerList";
 
 function NotFound() {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/quote/new" element={<QuoteNew />} />
         <Route path="/project/:projectId" element={<ProjectDetail />} />
+        <Route path="/customers" element={<CustomerList />} />
         <Route path="/module/:moduleId" element={<ModulePage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

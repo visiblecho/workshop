@@ -27,7 +27,7 @@ const NAV_GROUPS: NavGroup[] = [
     title: "Tagesgeschäft",
     items: [
       { label: "Dashboard", icon: LayoutGrid, path: "/dashboard", active: true },
-      { label: "Kunden", icon: Users, path: "/module/kunden", active: false },
+      { label: "Kunden", icon: Users, path: "/customers", active: true },
       { label: "Aufnahme", icon: ClipboardList, path: "/module/aufnahme", active: false },
       { label: "Angebote", icon: FileText, path: "/quote/new", active: true },
       { label: "Versand", icon: Send, path: "/module/versand", active: false },

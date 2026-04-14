@@ -7,6 +7,7 @@ import {
   type UserSummary,
 } from "../api";
 import AppLayout from "../components/AppLayout";
+import { showPhase2Toast } from "../components/Phase2Toast";
 
 const WEBER_FIRM_ID = "10000000-0000-0000-0000-000000000001";
 const NEUER_FIRM_ID = "10000000-0000-0000-0000-000000000002";
@@ -177,13 +178,21 @@ export default function Dashboard() {
           </div>
         )}
 
-        {/* New Quote CTA */}
-        <button
-          onClick={() => navigate(`/quote/new?firm=${firmId}`)}
-          className="w-full sm:w-auto px-6 py-3 bg-amber-500 hover:bg-amber-400 text-[#1F1B1C] font-semibold rounded-lg transition-colors"
-        >
-          + Neues Angebot
-        </button>
+        {/* CTAs */}
+        <div className="flex flex-wrap gap-3">
+          <button
+            onClick={() => navigate(`/quote/new?firm=${firmId}`)}
+            className="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-[#1F1B1C] font-semibold rounded-lg transition-colors"
+          >
+            + Neues Angebot
+          </button>
+          <button
+            onClick={() => showPhase2Toast("Neuer Kunde — verfügbar in Phase 2.")}
+            className="px-5 py-3 bg-white/5 hover:bg-white/10 text-white/60 rounded-lg font-medium transition-colors"
+          >
+            + Neuer Kunde
+          </button>
+        </div>
 
         {/* Recent Quotes */}
         {data.recent_quotes.length > 0 && (
