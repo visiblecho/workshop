@@ -273,11 +273,12 @@ export default function QuoteNew() {
                     <th className="px-4 py-2 text-right">Einheit</th>
                     <th className="px-4 py-2 text-right">EP</th>
                     <th className="px-4 py-2 text-right">Gesamt</th>
+                    <th className="px-4 py-2 w-16"></th>
                   </tr>
                 </thead>
                 <tbody>
                   {result.line_items.map((li) => (
-                    <tr key={li.id} className="border-b border-white/5">
+                    <tr key={li.id} className="border-b border-white/5 group">
                       <td className="px-4 py-2.5 text-white/30">{li.position}</td>
                       <td className="px-4 py-2.5 text-white/80">
                         {li.description}
@@ -296,20 +297,42 @@ export default function QuoteNew() {
                       <td className="px-4 py-2.5 text-right text-white/40">{UNIT_LABELS[li.unit] || li.unit}</td>
                       <td className="px-4 py-2.5 text-right text-white/60">{formatEUR(li.unit_price)}</td>
                       <td className="px-4 py-2.5 text-right text-white/80">{formatEUR(li.total)}</td>
+                      <td className="px-4 py-2.5 text-right">
+                        <span className="opacity-0 group-hover:opacity-100 transition-opacity flex gap-1 justify-end">
+                          <button
+                            onClick={() => showPhase2Toast("Position bearbeiten — verfügbar in Phase 2.")}
+                            className="p-1 rounded hover:bg-white/10 text-white/30 hover:text-white/60"
+                            title="Position bearbeiten"
+                          >
+                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={() => showPhase2Toast("Position entfernen — verfügbar in Phase 2.")}
+                            className="p-1 rounded hover:bg-red-500/10 text-white/30 hover:text-red-400/70"
+                            title="Position entfernen"
+                          >
+                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
                 <tfoot>
                   <tr className="border-t border-white/10">
-                    <td colSpan={6} className="px-4 py-2 text-right text-white/40">Netto</td>
+                    <td colSpan={7} className="px-4 py-2 text-right text-white/40">Netto</td>
                     <td className="px-4 py-2 text-right font-medium">{formatEUR(totalNet)}</td>
                   </tr>
                   <tr>
-                    <td colSpan={6} className="px-4 py-1.5 text-right text-white/30 text-xs">MwSt. 19%</td>
+                    <td colSpan={7} className="px-4 py-1.5 text-right text-white/30 text-xs">MwSt. 19%</td>
                     <td className="px-4 py-1.5 text-right text-white/40 text-xs">{formatEUR(mwst)}</td>
                   </tr>
                   <tr className="border-t border-white/10">
-                    <td colSpan={6} className="px-4 py-2 text-right font-semibold">Brutto</td>
+                    <td colSpan={7} className="px-4 py-2 text-right font-semibold">Brutto</td>
                     <td className="px-4 py-2 text-right font-bold text-amber-400">{formatEUR(totalGross)}</td>
                   </tr>
                 </tfoot>
