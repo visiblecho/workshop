@@ -12,7 +12,9 @@ interface NavItem {
   label: string;
   icon: React.ElementType;
   path: string;
-  active: boolean; // true = links to existing screen, false = placeholder
+  active: boolean;
+  /** Additional paths that count as "current" for this item */
+  matchPaths?: string[];
 }
 
 interface NavGroup {
@@ -39,8 +41,8 @@ const NAV_GROUPS: NavGroup[] = [
   {
     title: "Analyse",
     items: [
-      { label: "Nachkalkulation", icon: TrendingUp, path: "/dashboard", active: true },
-      { label: "Betriebsvergleich", icon: BarChart3, path: "/dashboard", active: true },
+      { label: "Nachkalkulation", icon: TrendingUp, path: "/dashboard", active: true, matchPaths: ["/project/"] },
+      { label: "Betriebsvergleich", icon: BarChart3, path: "/module/betriebsvergleich", active: false },
     ],
   },
   {
@@ -63,19 +65,19 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
   const firmId = searchParams.get("firm") || WEBER_FIRM_ID;
 
   function handleNav(item: NavItem) {
-    const separator = item.path.includes("?") ? "&" : "?";
     const target = item.path.startsWith("/module/")
       ? item.path
-      : `${item.path}${separator}firm=${firmId}`;
+      : `${item.path}?firm=${firmId}`;
     navigate(target);
     onClose();
   }
 
   function isCurrent(item: NavItem): boolean {
-    if (item.path.startsWith("/module/")) {
-      return location.pathname === item.path;
+    if (location.pathname === item.path) return true;
+    if (item.matchPaths) {
+      return item.matchPaths.some((p) => location.pathname.startsWith(p));
     }
-    return location.pathname === item.path;
+    return false;
   }
 
   return (
@@ -99,9 +101,10 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
         </div>
 
         {/* Nav groups */}
-        <nav className="flex-1 overflow-y-auto py-2">
-          {NAV_GROUPS.map((group) => (
-            <div key={group.title} className="mb-2">
+        <nav className="flex-1 overflow-y-auto py-3">
+          {NAV_GROUPS.map((group, gi) => (
+            <div key={group.title}>
+              {gi > 0 && <div className="mx-4 my-2 border-t border-white/5" />}
               <div className="px-4 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-white/25">
                 {group.title}
               </div>
@@ -114,15 +117,18 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                     onClick={() => handleNav(item)}
                     className={`w-full flex items-center gap-3 px-4 py-2 text-sm transition-colors ${
                       current
-                        ? "bg-amber-500/10 text-amber-400"
+                        ? "bg-amber-500/10 text-amber-400 border-r-2 border-amber-400"
                         : item.active
                         ? "text-white/80 hover:bg-white/5 hover:text-white"
                         : "text-white/35 hover:bg-white/5 hover:text-white/50"
                     }`}
                   >
-                    <Icon className="w-4 h-4 shrink-0" strokeWidth={current || item.active ? 2 : 1.5} />
-                    <span className={item.active ? "" : ""}>{item.label}</span>
-                    {!item.active && (
+                    <Icon
+                      className={`w-4 h-4 shrink-0 ${!item.active && !current ? "opacity-50" : ""}`}
+                      strokeWidth={current || item.active ? 2 : 1.5}
+                    />
+                    <span>{item.label}</span>
+                    {!item.active && !current && (
                       <span className="ml-auto text-[9px] text-white/15 uppercase tracking-wide">Bald</span>
                     )}
                   </button>
