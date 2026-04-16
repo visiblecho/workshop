@@ -57,22 +57,47 @@ export default function Dashboard() {
   const [activeUser, setActiveUser] = useState<UserSummary | null>(null);
   const [showBanner, setShowBanner] = useState(imported);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  function loadDashboard(fid: string) {
     setLoading(true);
-    Promise.all([getDashboard(firmId), getFirmUsers(firmId)]).then(([d, u]) => {
-      setData(d);
-      setUsers(u);
-      setActiveUser(u.find((x) => x.role === "meister") || u[0] || null);
-      setLoading(false);
-    });
-  }, [firmId]);
+    setError(null);
+    Promise.all([getDashboard(fid), getFirmUsers(fid)])
+      .then(([d, u]) => {
+        setData(d);
+        setUsers(u);
+        setActiveUser(u.find((x) => x.role === "meister") || u[0] || null);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+        setError("Daten konnten nicht geladen werden.");
+      });
+  }
 
-  if (loading || !data) {
+  useEffect(() => { loadDashboard(firmId); }, [firmId]);
+
+  if (loading) {
     return (
       <AppLayout title="Dashboard">
         <div className="flex items-center justify-center py-20">
           <div className="text-white/50">Laden...</div>
+        </div>
+      </AppLayout>
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <AppLayout title="Dashboard">
+        <div className="flex flex-col items-center justify-center py-20 gap-4">
+          <div className="text-red-400">{error || "Keine Daten gefunden."}</div>
+          <button
+            onClick={() => loadDashboard(firmId)}
+            className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white/60 rounded-lg text-sm transition-colors"
+          >
+            Erneut versuchen
+          </button>
         </div>
       </AppLayout>
     );
